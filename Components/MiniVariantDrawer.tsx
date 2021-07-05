@@ -18,7 +18,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Link from '../src/Link';
-import Copyright from '../src/Copyright';
 
 const drawerWidth = 240;
 
@@ -85,7 +84,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-export default function MiniDrawer(props: LayoutProps) {
+export default function MiniDrawer() { //props: LayoutProps) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -100,8 +99,7 @@ export default function MiniDrawer(props: LayoutProps) {
   };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <React.Fragment>
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -150,15 +148,9 @@ export default function MiniDrawer(props: LayoutProps) {
                 <ListItemText primary={text} />
               </ListItem>
             </Link>
-
           ))}
         </List>
       </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {props.children}
-        <Copyright />
-      </main>
-    </div>
+    </React.Fragment>
   );
 }

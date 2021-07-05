@@ -5,9 +5,27 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import MiniDrawer from '../Components/MiniVariantDrawer';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Copyright from '../src/Copyright';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+    toolbar: {
+      ...theme.mixins.toolbar,
+    },
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+  }),
+);
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;
+  const classes = useStyles();
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -19,18 +37,23 @@ export default function MyApp(props: AppProps) {
 
   return (
     <React.Fragment>
-      <MiniDrawer>
-
-        <Head>
-          <title>My page</title>
-          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        </Head>
+      <div className={classes.root}>
         <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
+
+          <MiniDrawer />
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Head>
+              <title>My page</title>
+              <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+            </Head>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+            <Copyright />
+          </main>
         </ThemeProvider>
-      </MiniDrawer>
+      </div>
     </React.Fragment>
   );
 }
